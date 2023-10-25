@@ -2,6 +2,8 @@
 
 // This is the global list of the stories, an instance of StoryList
 let storyList;
+let userFavoriteStories;
+let userStories;
 /** Get and show stories when site first loads. */
 
 async function getAndShowStoriesOnStart() {
@@ -55,14 +57,14 @@ function putStoriesOnPageForSignedOutUser() {
 }
 
 /** Gets list of stories from server, generates their HTML, and puts on page. */
-async function putStoriesOnPage() {
+async function putStoriesOnPage(lst) {
   console.debug("putStoriesOnPage");
 
   const favIds = await getFavStoryIds();
   $allStoriesList.empty();
 
   // loop through all of our stories and generate HTML for them
-  for (let story of storyList.stories) {
+  for (let story of lst.stories) {
     const $story = generateStoryMarkup(story);
 
     if (favIds.includes(story.storyId)) {
@@ -122,16 +124,32 @@ function clearInputs() {
 
 // Get fav stories.
 async function getAndShowFavStories() {
-  storyList = await StoryList.getUserFavStories();
+  userFavoriteStories = await StoryList.getUserFavStories();
   $storiesLoadingMsg.remove();
-
-  putStoriesOnPage();
+  if (userFavoriteStories.stories.length === 0) {
+    $allStoriesList.empty();
+    $allStoriesList.append("<h5>You have not favorated any stories yet!</h5>");
+    $allStoriesList.show();
+  } else {
+    putStoriesOnPage(userFavoriteStories);
+  }
 }
 
 // Get User Stories.
 async function getAndShowUserStories() {
-  storyList = await StoryList.getUserStories();
+  userStories = await StoryList.getUserStories();
   $storiesLoadingMsg.remove();
+  if (userStories.stories.length === 0) {
+    $allStoriesList.empty();
+    $allStoriesList.append("<h5>You have not added any stories yet!</h5>");
+    $allStoriesList.show();
+  } else {
+    putStoriesOnPage(userStories);
+  }
+}
 
-  putStoriesOnPage();
+async function getAndShowAllStories() {
+  storyList = await StoryList.getStories();
+  $storiesLoadingMsg.remove();
+  putStoriesOnPage(storyList);
 }

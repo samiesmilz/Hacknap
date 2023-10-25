@@ -12,3 +12,16 @@
 .account-forms-container {
   padding-left: 20px;
 }
+#user-profile div {
+  padding: 10px;
+  border: 1px dotted rgba(255, 68, 0, 0.267);
+  margin: 10px 0px;
+}
+
+#profile-fields span {
+  color: orangered;
+}
+
+#profile-fields {
+  font-size: small;
+}

@@ -122,7 +122,7 @@ function updateUIOnUserLogin() {
   $allStoriesList.show();
   $mainNavLinks.show();
   updateNavOnLogin();
-  putStoriesOnPage();
+  getAndShowAllStories();
   $signupForm.hide();
   $loginForm.hide();
 }
@@ -159,4 +159,16 @@ $("#all-stories-list").on("click", ".fa-star", async function () {
   }
 });
 
-// Mark Favorites
+// Get User info.
+function getUserInfo() {
+  const username = currentUser.username;
+  const profileName = currentUser.name;
+  const signUpDate = currentUser.createdAt;
+  const numOfStories = currentUser.ownStories.length;
+
+  // set profile details on page.
+  $profileName.text(profileName);
+  $profileUsername.text(username);
+  $profileDate.text(signUpDate);
+  $profileStories.text(numOfStories);
+}

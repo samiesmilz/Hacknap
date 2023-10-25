@@ -8,13 +8,12 @@
 
 async function navAllStories(evt) {
   console.debug("navAllStories", evt);
-  //hidePageComponents();
+  hidePageComponents();
   hideForms();
-  //await getAndShowStoriesOnStart();
   if (currentUser === undefined) {
     putStoriesOnPageForSignedOutUser();
   } else {
-    putStoriesOnPage();
+    await getAndShowAllStories();
   }
 }
 
@@ -26,7 +25,7 @@ async function navFavStories(evt) {
   console.debug("navFavStories", evt);
   hidePageComponents();
   await getAndShowFavStories();
-  putStoriesOnPage();
+  //putStoriesOnPage(userFavoriteStories);
 }
 $body.on("click", "#nav-favorites", navFavStories);
 
@@ -35,7 +34,7 @@ async function navUserStories(evt) {
   console.debug("navMyStories", evt);
   hidePageComponents();
   await getAndShowUserStories();
-  putStoriesOnPage();
+  //putStoriesOnPage(userStories);
 }
 $body.on("click", "#nav-my-stories", navUserStories);
 
@@ -76,3 +75,11 @@ function signOut() {
   putStoriesOnPageForSignedOutUser();
 }
 $navLogOut.on("click", signOut);
+
+function userProfile() {
+  console.debug("User profile.");
+  hidePageComponents();
+  getUserInfo();
+  $userProfile.show();
+}
+$navUserProfile.on("click", userProfile);
