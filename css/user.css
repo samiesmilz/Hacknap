@@ -1,7 +1,8 @@
 /* Login and signup forms */
 
 .account-form button {
-  width: 4rem;
+  min-width: 4rem;
+  width: fit-content;
   margin-left: 80px;
 }
 
@@ -24,4 +25,20 @@
 
 #profile-fields {
   font-size: small;
+}
+
+#user-profile-title {
+  display: inline-block;
+}
+
+#edit-profile-btn {
+  margin-left: 5px;
+  border-radius: 10px;
+  padding: 1px 10px;
+  border: 1px dotted orangered;
+}
+
+#edit-profile-btn:hover {
+  background-color: orangered;
+  color: white;
 }

@@ -39,14 +39,26 @@ async function signup(evt) {
   const username = $("#signup-username").val();
   const password = $("#signup-password").val();
 
-  // User.signup retrieves user info from API and returns User instance
-  // which we'll make the globally-available, logged-in user.
-  currentUser = await User.signup(username, password, name);
-
-  saveUserCredentialsInLocalStorage();
-  updateUIOnUserLogin();
-
-  $signupForm.trigger("reset");
+  try {
+    currentUser = await User.signup(username, password, name);
+    saveUserCredentialsInLocalStorage();
+    $signUpMessage.show();
+    updateUIOnUserLogin();
+    $signupForm.trigger("reset");
+  } catch (error) {
+    // Handle signup failure
+    if (error.response.status === 409) {
+      // Bad Request (username already taken)
+      // Show an error message to the user
+      $signUpMessage
+        .text("Sorry, this username is already taken!")
+        .css("color", "red")
+        .show();
+    } else {
+      // Handle other types of errors (e.g., network issues)
+      $signUpMessage.text("Signup failed. An error occurred.").show();
+    }
+  }
 }
 
 $signupForm.on("submit", signup);
@@ -125,6 +137,7 @@ function updateUIOnUserLogin() {
   getAndShowAllStories();
   $signupForm.hide();
   $loginForm.hide();
+  $profileEditForm.hide();
 }
 
 /** Favrite or unfavorite a story.. */
@@ -172,3 +185,29 @@ function getUserInfo() {
   $profileDate.text(signUpDate);
   $profileStories.text(numOfStories);
 }
+
+// update user profile.
+// updateProfile
+
+async function updateProfileInfo(evt) {
+  console.debug("updateProfileInfo", evt);
+  evt.preventDefault();
+
+  // grab the username and password
+  const newName = $("#edit-name").val();
+  const newPassword = $("#edit-password").val();
+
+  // User.updateProfile retrieves updated user info from API and returns User instance
+  // which we'll make the globally-available, logged-in user.
+  await User.updateProfile(newName, newPassword);
+  currentUser = await User.login(currentUser.username, newPassword);
+
+  console.log("Profile updated...");
+  $profileEditForm.trigger("reset");
+  hidePageComponents();
+  saveUserCredentialsInLocalStorage();
+
+  updateUIOnUserLogin();
+}
+
+$profileEditForm.on("submit", updateProfileInfo);

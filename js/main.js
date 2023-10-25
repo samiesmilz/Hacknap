@@ -6,6 +6,8 @@ const $body = $("body");
 
 const $storiesLoadingMsg = $("#stories-loading-msg");
 const $allStoriesList = $("#all-stories-list");
+const $favStoriesList = $("#favorited-stories");
+const $userStoriesList = $("#my-stories");
 
 const $navSubmit = $("#nav-submit-story");
 const $submitForm = $("#submit-form");
@@ -16,8 +18,11 @@ const $title = $("#create-title");
 const $url = $("#create-url");
 const $submitStoryBtn = $("#submit-story-btn");
 
+const $editStoryForm = $("#edit-story-form");
+
 const $loginForm = $("#login-form");
 const $signupForm = $("#signup-form");
+const $signUpMessage = $("#signup-message");
 
 const $navLogin = $("#nav-login");
 const $navUserProfile = $("#nav-user-profile");
@@ -29,6 +34,9 @@ const $profileName = $("#profile-name");
 const $profileUsername = $("#profile-username");
 const $profileDate = $("#profile-account-date");
 const $profileStories = $("#profile-stories");
+const $editProfileBtn = $("#edit-profile-btn");
+const $updateProfileBtn = $("#edit-profile-btn");
+const $profileEditForm = $("#profile-edit-form");
 
 /** To make it easier for individual components to show just themselves, this
  * is a useful function that hides pretty much everything on the page. After
@@ -38,10 +46,13 @@ const $profileStories = $("#profile-stories");
 function hidePageComponents() {
   const components = [
     $allStoriesList,
+    $favStoriesList,
     $loginForm,
     $signupForm,
     $submitForm,
     $userProfile,
+    $editStoryForm,
+    $profileEditForm,
   ];
   components.forEach((c) => c.hide());
 }
@@ -52,7 +63,14 @@ function hideMainNav() {
 }
 
 function hideForms() {
-  const components = [$loginForm, $signupForm, $submitForm, $allStoriesList];
+  const components = [
+    $loginForm,
+    $signupForm,
+    $submitForm,
+    $allStoriesList,
+    $editStoryForm,
+    $profileEditForm,
+  ];
   components.forEach((c) => c.hide());
 }
 

@@ -1,5 +1,4 @@
 /* Navigation bar */
-
 nav {
   display: flex;
   background-color: #ff6600;
@@ -14,14 +13,33 @@ nav {
 }
 
 .main-nav-links {
-  display: block;
+  flex: 1; /* Grow to fill available space */
 }
+
 .nav-link {
   font-size: 0.85rem;
   margin: 0 3px;
 }
 
 .nav-right {
-  margin-left: auto;
   text-align: right;
+  white-space: nowrap; /* Prevent wrapping of links */
+}
+
+/* Add media query for responsive behavior */
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column;
+    align-items: flex-start;
+    height: auto;
+  }
+  .navbar-brand,
+  .main-nav-links,
+  .nav-right {
+    flex: none; /* Reset flex behavior for smaller screens */
+    width: 100%; /* Full width for each section */
+  }
+  .main-nav-links {
+    margin-top: 10px; /* Add spacing between sections */
+  }
 }

@@ -84,6 +84,7 @@ Mark Fav stories on Page
 
 */
 async function getFavStoryIds() {
+  console.debug("getFavStoryIds");
   const favStories = await StoryList.getUserFavStories();
   const storiesData = await favStories.stories;
   let favIds = [];
@@ -109,6 +110,7 @@ async function submitNewStory(e) {
   const story = await storyList.addStory(currentUser, storyData);
   const $newStory = generateStoryMarkup(story);
   $allStoriesList.prepend($newStory);
+  $allStoriesList.show();
   clearInputs();
 }
 
@@ -124,6 +126,7 @@ function clearInputs() {
 
 // Get fav stories.
 async function getAndShowFavStories() {
+  console.debug("getAndShowFavStories");
   userFavoriteStories = await StoryList.getUserFavStories();
   $storiesLoadingMsg.remove();
   if (userFavoriteStories.stories.length === 0) {
@@ -137,6 +140,7 @@ async function getAndShowFavStories() {
 
 // Get User Stories.
 async function getAndShowUserStories() {
+  console.debug("getAndShowUserStories");
   userStories = await StoryList.getUserStories();
   $storiesLoadingMsg.remove();
   if (userStories.stories.length === 0) {

@@ -75,19 +75,39 @@
         <button id="submit-story-btn" type="submit">submit</button>
         <hr />
       </form>
+      <!-- Form for editing a story 
+      <form id="edit-story-form" class="hidden">
+        <label for="edit-title">Title:</label>
+        <input type="text" id="edit-title" required />
+
+        <label for="edit-author">Author:</label>
+        <input type="text" id="edit-author" required />
+
+        <label for="edit-url">URL:</label>
+        <input type="url" id="edit-url" required />
+
+        <button type="submit" id="edit-story-btn">Save Changes</button>
+      </form> -->
 
       <!-- loading message (removed by JS after stories loaded) -->
       <div id="stories-loading-msg">Loading&hellip;</div>
 
       <!-- List of all stories -->
       <ol id="all-stories-list" class="stories-list"></ol>
+
+      <!-- List of stories favorited by the user -->
+      <ol id="favorited-stories" class="hidden stories-list"></ol>
+
+      <!-- List of stories by the user -->
+      <ol id="my-stories" class="hidden stories-list"></ol>
     </section>
 
     <!-- User profile -->
     <section id="user-profile" class="hidden">
       <div class="user-profile-box container">
         <div>
-          <h4>User Profile Info</h4>
+          <h4 id="user-profile-title">User Profile Info</h4>
+          <button id="edit-profile-btn">edit</button>
         </div>
 
         <section id="profile-fields">
@@ -125,6 +145,29 @@
         <hr />
       </form>
 
+      <!-- Edit profile form -->
+      <form id="profile-edit-form" class="account-form hidden" method="put">
+        <div id="edit-name-input">
+          <label for="edit-name">Your full name: </label>
+          <input
+            type="text"
+            id="edit-name"
+            autocomplete="new-username"
+            required
+          />
+        </div>
+        <div id="edit-password-input">
+          <label for="edit-password">New password:</label>
+          <input
+            type="password"
+            autocomplete="new-password"
+            id="edit-password"
+            required
+          />
+        </div>
+        <button type="submit" id="update-profile-btn">Save Changes</button>
+      </form>
+
       <!-- Signup form -->
       <form
         action="#"
@@ -150,6 +193,7 @@
           />
         </div>
         <button type="submit">create account</button>
+        <p id="signup-message" class="hidden">Account created successfully!</p>
       </form>
     </section>
 

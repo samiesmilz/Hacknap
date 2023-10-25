@@ -183,6 +183,42 @@ class User {
     );
   }
 
+  /** Update user in API, make User instance & return it.
+   *
+   * - username: a new username
+   * - password: a new password
+   * - name: the user's full name
+   */
+
+  static async updateProfile(name, password) {
+    const username = currentUser.username;
+    const token = currentUser.loginToken;
+    const response = await axios({
+      url: `${BASE_URL}/users/${username}`,
+      method: "PATCH",
+      data: {
+        token,
+        user: {
+          name,
+          password,
+        },
+      },
+    });
+
+    let { user } = response.data;
+
+    return new User(
+      {
+        username: user.username,
+        name: user.name,
+        createdAt: user.createdAt,
+        favorites: user.favorites,
+        ownStories: user.stories,
+      },
+      response.data.token
+    );
+  }
+
   /** Login in user with API, make User instance & return it.
 
    * - username: an existing user's username

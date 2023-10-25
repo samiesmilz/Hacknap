@@ -62,7 +62,7 @@ function updateNavOnLogin() {
 /** Show submit-form on click on "submit" */
 function navSubmitClick(evt) {
   console.debug("navSubmitClick", evt);
-  // hidePageComponents();
+  hidePageComponents();
   $allStoriesList.show();
   $submitForm.show();
 }
@@ -83,3 +83,14 @@ function userProfile() {
   $userProfile.show();
 }
 $navUserProfile.on("click", userProfile);
+
+// Edit user profile
+function displayEditProfileForm() {
+  // Show the edit profile form
+  $profileEditForm.show();
+
+  // Populate the form fields with the user's current data
+  $("#edit-name").val(currentUser.name);
+  $("#edit-password").val("");
+}
+$editProfileBtn.on("click", displayEditProfileForm);
